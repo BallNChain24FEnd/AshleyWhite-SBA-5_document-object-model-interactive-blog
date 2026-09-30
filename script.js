@@ -44,9 +44,35 @@ function validateForm() {
     return isValid;
 }
 
-// Test validation when the form is submitted
+
+// Add new blog post functionality (Commit 5)
+
 postForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    validateForm();
+    // Stop if the form is invalid
+    if (!validateForm()) {
+        return;
+    }
+
+    // Create new post object
+    const newPost = {
+        id: Date.now(),
+        title: postTitle.value.trim(),
+        content: postContent.value.trim(),
+        timestamp: new Date().toLocaleString()
+    };
+
+    // Add new post to posts array
+    posts.push(newPost);
+
+    // Check new post in console
+    console.log(posts);
+
+    // Clear form
+    postForm.reset();
+
+    // Make sure error messages are cleared
+    titleError.textContent = "";
+    contentError.textContent = "";
 });
