@@ -1,0 +1,111 @@
+/* Basic page styling */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+    color: #222;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+header p {
+    margin: 0;
+    color: #555;
+}
+
+/* Main layout */
+main {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+/* Sections */
+.post-form-section,
+.posts-section {
+    background-color: #ffffff;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Form */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Button */
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+/* Error messages */
+.error-message {
+    display: block;
+    margin-top: 6px;
+    color: #c62828;
+    font-size: 0.9rem;
+}
+
+/* Blog posts area */
+#postsContainer {
+    margin-top: 20px;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+    main {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .post-form-section,
+    .posts-section {
+        padding: 20px;
+    }
+}
