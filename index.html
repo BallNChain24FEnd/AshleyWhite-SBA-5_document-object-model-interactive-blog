@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Personal Blog</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Interactive Personal Blog</h1>
+        <p>Create, edit, and manage your personal blog posts.</p>
+    </header>
+
+    <main>
+
+        <!-- New Post Form -->
+        <section class="post-form-section">
+            <h2>Create a New Post</h2>
+
+            <form id="postForm" novalidate>
+
+                <div class="form-group">
+                    <label for="postTitle">Post Title</label>
+
+                    <input
+                        type="text"
+                        id="postTitle"
+                        name="postTitle"
+                        placeholder="Enter your post title"
+                        required
+                    >
+
+                    <span
+                        id="titleError"
+                        class="error-message"
+                    ></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="postContent">Post Content</label>
+
+                    <textarea
+                        id="postContent"
+                        name="postContent"
+                        rows="8"
+                        placeholder="Write your post here..."
+                        required
+                    ></textarea>
+
+                    <span
+                        id="contentError"
+                        class="error-message"
+                    ></span>
+                </div>
+
+                <button type="submit" id="submitButton">
+                    Add Post
+                </button>
+
+            </form>
+        </section>
+
+        <!-- Blog Posts -->
+        <section class="posts-section">
+            <h2>My Posts</h2>
+
+            <div id="postsContainer">
+                <!-- Blog posts will be added here with JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
