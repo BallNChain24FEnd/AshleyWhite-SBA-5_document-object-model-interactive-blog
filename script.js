@@ -45,17 +45,28 @@ function validateForm() {
 }
 
 
-// Add new blog post functionality (Commit 5)
+// localStorage data persistence (Commit 7)
+
+function savePosts() {
+    localStorage.setItem("posts", JSON.stringify(posts));
+}
+
+function loadPosts() {
+    const savedPosts = localStorage.getItem("posts");
+
+    if (savedPosts) {
+        posts = JSON.parse(savedPosts);
+    }
+}
+
 
 postForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // Stop if the form is invalid
     if (!validateForm()) {
         return;
     }
 
-    // Create new post object
     const newPost = {
         id: Date.now(),
         title: postTitle.value.trim(),
@@ -63,21 +74,23 @@ postForm.addEventListener("submit", function (event) {
         timestamp: new Date().toLocaleString()
     };
 
-    // Add new post to posts array
     posts.push(newPost);
+
+    savePosts();
 
     renderPosts();
 
-    // Check new post in console
     console.log(posts);
 
-    // Clear form
     postForm.reset();
 
-    // Make sure error messages are cleared
     titleError.textContent = "";
     contentError.textContent = "";
 });
+
+
+loadPosts();
+renderPosts();
 
 
 // Render blog posts dynamically (Commit 6)
