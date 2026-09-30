@@ -109,3 +109,38 @@ button:hover {
         padding: 20px;
     }
 }
+
+/* Blog post cards */
+.blog-post {
+    padding: 20px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #fafafa;
+}
+
+.blog-post h3 {
+    margin-top: 0;
+}
+
+.blog-post small {
+    display: block;
+    margin-top: 15px;
+    color: #666;
+}
+
+.post-actions {
+    margin-top: 15px;
+}
+
+.post-actions button {
+    margin-right: 8px;
+}
+
+.delete-button {
+    background-color: #a82828;
+}
+
+.delete-button:hover {
+    background-color: #7f1e1e;
+}

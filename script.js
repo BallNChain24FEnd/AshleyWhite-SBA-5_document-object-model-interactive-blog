@@ -66,6 +66,8 @@ postForm.addEventListener("submit", function (event) {
     // Add new post to posts array
     posts.push(newPost);
 
+    renderPosts();
+
     // Check new post in console
     console.log(posts);
 
@@ -76,3 +78,42 @@ postForm.addEventListener("submit", function (event) {
     titleError.textContent = "";
     contentError.textContent = "";
 });
+
+
+// Render blog posts dynamically (Commit 6)
+
+function renderPosts() {
+    // Clear current posts before re-rendering
+    postsContainer.innerHTML = "";
+
+    // Show a message if there are no posts
+    if (posts.length === 0) {
+        postsContainer.innerHTML = "<p>No posts yet.</p>";
+        return;
+    }
+
+    // Create and display each post
+    posts.forEach(function (post) {
+        const postElement = document.createElement("article");
+
+        postElement.classList.add("blog-post");
+
+        postElement.innerHTML = `
+            <h3>${post.title}</h3>
+            <p>${post.content}</p>
+            <small>${post.timestamp}</small>
+
+            <div class="post-actions">
+                <button class="edit-button" data-id="${post.id}">
+                    Edit
+                </button>
+
+                <button class="delete-button" data-id="${post.id}">
+                    Delete
+                </button>
+            </div>
+        `;
+
+        postsContainer.appendChild(postElement);
+    });
+}
