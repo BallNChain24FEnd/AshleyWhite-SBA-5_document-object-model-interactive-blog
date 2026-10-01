@@ -96,19 +96,36 @@ postForm.addEventListener("submit", function (event) {
         return;
     }
 
-    const newPost = {
-        id: Date.now(),
-        title: postTitle.value.trim(),
-        content: postContent.value.trim(),
-        timestamp: new Date().toLocaleString()
-    };
+    // If editing an existing post
+    if (editingPostId !== null) {
+        const postToUpdate = posts.find(function (post) {
+            return post.id === editingPostId;
+        });
 
-    posts.push(newPost);
+        if (postToUpdate) {
+            postToUpdate.title = postTitle.value.trim();
+            postToUpdate.content = postContent.value.trim();
+            postToUpdate.timestamp = new Date().toLocaleString();
+        }
+
+        editingPostId = null;
+        submitButton.textContent = "Add Post";
+    }
+
+    // If creating a new post
+    else {
+        const newPost = {
+            id: Date.now(),
+            title: postTitle.value.trim(),
+            content: postContent.value.trim(),
+            timestamp: new Date().toLocaleString()
+        };
+
+        posts.push(newPost);
+    }
 
     savePosts();
     renderPosts();
-
-    console.log(posts);
 
     postForm.reset();
 
@@ -117,18 +134,35 @@ postForm.addEventListener("submit", function (event) {
 });
 
 
-// Delete post functionality (Commit 8)
+// Delete and edit post functionality (Commit 8 and 9)
 
 postsContainer.addEventListener("click", function (event) {
-    if (event.target.classList.contains("delete-button")) {
-        const postId = Number(event.target.dataset.id);
+    const postId = Number(event.target.dataset.id);
 
+    // Delete post
+    if (event.target.classList.contains("delete-button")) {
         posts = posts.filter(function (post) {
             return post.id !== postId;
         });
 
         savePosts();
         renderPosts();
+    }
+
+    // Edit post
+    if (event.target.classList.contains("edit-button")) {
+        const postToEdit = posts.find(function (post) {
+            return post.id === postId;
+        });
+
+        if (postToEdit) {
+            postTitle.value = postToEdit.title;
+            postContent.value = postToEdit.content;
+
+            editingPostId = postToEdit.id;
+
+            submitButton.textContent = "Update Post";
+        }
     }
 });
 
