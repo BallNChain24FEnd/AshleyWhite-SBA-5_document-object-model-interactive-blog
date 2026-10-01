@@ -97,20 +97,21 @@ postForm.addEventListener("submit", function (event) {
     }
 
     // If editing an existing post
-    if (editingPostId !== null) {
-        const postToUpdate = posts.find(function (post) {
-            return post.id === editingPostId;
-        });
+   if (editingPostId !== null) {
+    const postToUpdate = posts.find(function (post) {
+        return post.id === editingPostId;
+    });
 
-        if (postToUpdate) {
-            postToUpdate.title = postTitle.value.trim();
-            postToUpdate.content = postContent.value.trim();
-            postToUpdate.timestamp = new Date().toLocaleString();
-        }
-
-        editingPostId = null;
-        submitButton.textContent = "Add Post";
+    if (postToUpdate) {
+        postToUpdate.title = postTitle.value.trim();
+        postToUpdate.content = postContent.value.trim();
+        postToUpdate.timestamp =
+            "Updated: " + new Date().toLocaleString();
     }
+
+    editingPostId = null;
+    submitButton.textContent = "Add Post";
+}
 
     // If creating a new post
     else {
@@ -150,20 +151,31 @@ postsContainer.addEventListener("click", function (event) {
     }
 
     // Edit post
-    if (event.target.classList.contains("edit-button")) {
-        const postToEdit = posts.find(function (post) {
-            return post.id === postId;
+if (event.target.classList.contains("edit-button")) {
+    const postToEdit = posts.find(function (post) {
+        return post.id === postId;
+    });
+
+    if (postToEdit) {
+        postTitle.value = postToEdit.title;
+        postContent.value = postToEdit.content;
+
+        editingPostId = postToEdit.id;
+
+        submitButton.textContent = "Update Post";
+
+        // Clear old validation messages
+        titleError.textContent = "";
+        contentError.textContent = "";
+
+        // Move the user back to the form
+        postForm.scrollIntoView({
+            behavior: "smooth"
         });
 
-        if (postToEdit) {
-            postTitle.value = postToEdit.title;
-            postContent.value = postToEdit.content;
-
-            editingPostId = postToEdit.id;
-
-            submitButton.textContent = "Update Post";
-        }
+        postTitle.focus();
     }
+}
 });
 
 
