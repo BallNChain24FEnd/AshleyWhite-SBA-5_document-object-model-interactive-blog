@@ -1,8 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Interactive Personal Blog</title>
 
     <link rel="stylesheet" href="styles.css">
@@ -17,44 +20,32 @@
 
     <main>
 
-        <!-- New Post Form -->
+        <!-- Create or Edit Post Form -->
         <section class="post-form-section">
             <h2>Create a New Post</h2>
 
             <form id="postForm" novalidate>
 
                 <div class="form-group">
-                    <label for="postTitle">Post Title</label>
+                    <label for="postTitle">
+                        Post Title
+                    </label>
 
-                    <input
-                        type="text"
-                        id="postTitle"
-                        name="postTitle"
-                        placeholder="Enter your post title"
-                        required
-                    >
+                    <input type="text" id="postTitle" name="postTitle" placeholder="Enter your post title" required
+                        aria-describedby="titleError">
 
-                    <span
-                        id="titleError"
-                        class="error-message"
-                    ></span>
+                    <span id="titleError" class="error-message" aria-live="polite"></span>
                 </div>
 
                 <div class="form-group">
-                    <label for="postContent">Post Content</label>
+                    <label for="postContent">
+                        Post Content
+                    </label>
 
-                    <textarea
-                        id="postContent"
-                        name="postContent"
-                        rows="8"
-                        placeholder="Write your post here..."
-                        required
-                    ></textarea>
+                    <textarea id="postContent" name="postContent" rows="8" placeholder="Write your post here..."
+                        required aria-describedby="contentError"></textarea>
 
-                    <span
-                        id="contentError"
-                        class="error-message"
-                    ></span>
+                    <span id="contentError" class="error-message" aria-live="polite"></span>
                 </div>
 
                 <button type="submit" id="submitButton">
@@ -64,17 +55,19 @@
             </form>
         </section>
 
-        <!-- Blog Posts -->
+        <!-- Blog Posts Display -->
         <section class="posts-section">
             <h2>My Posts</h2>
 
             <div id="postsContainer">
-                <!-- Blog posts will be added here with JavaScript -->
+                <!-- Blog posts will be added here dynamically with JavaScript -->
             </div>
         </section>
 
     </main>
 
     <script src="script.js"></script>
+
 </body>
+
 </html>

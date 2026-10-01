@@ -69,7 +69,7 @@ textarea {
     resize: vertical;
 }
 
-/* Button */
+/* Buttons */
 button {
     padding: 12px 20px;
     border: none;
@@ -97,19 +97,6 @@ button:hover {
     margin-top: 20px;
 }
 
-/* Responsive layout */
-@media (max-width: 600px) {
-    main {
-        margin: 20px auto;
-        padding: 0 15px;
-    }
-
-    .post-form-section,
-    .posts-section {
-        padding: 20px;
-    }
-}
-
 /* Blog post cards */
 .blog-post {
     padding: 20px;
@@ -123,12 +110,17 @@ button:hover {
     margin-top: 0;
 }
 
+.blog-post p {
+    line-height: 1.5;
+}
+
 .blog-post small {
     display: block;
     margin-top: 15px;
     color: #666;
 }
 
+/* Post action buttons */
 .post-actions {
     margin-top: 15px;
 }
@@ -137,10 +129,48 @@ button:hover {
     margin-right: 8px;
 }
 
+.edit-button {
+    background-color: #333;
+}
+
+.edit-button:hover {
+    background-color: #555;
+}
+
 .delete-button {
     background-color: #a82828;
 }
 
 .delete-button:hover {
     background-color: #7f1e1e;
+}
+
+/* Keyboard accessibility */
+button:focus,
+input:focus,
+textarea:focus {
+    outline: 3px solid #555;
+    outline-offset: 2px;
+}
+
+/* Responsive layout */
+@media (max-width: 600px) {
+    main {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .post-form-section,
+    .posts-section {
+        padding: 20px;
+    }
+
+    button {
+        width: 100%;
+    }
+
+    .post-actions button {
+        margin-right: 0;
+        margin-bottom: 8px;
+    }
 }

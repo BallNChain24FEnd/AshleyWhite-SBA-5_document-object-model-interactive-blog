@@ -1,4 +1,4 @@
-// DOM selections and blog state (Commit 3)
+// DOM selections and application state
 
 const postForm = document.getElementById("postForm");
 const postTitle = document.getElementById("postTitle");
@@ -14,7 +14,7 @@ let posts = [];
 let editingPostId = null;
 
 
-// Custom form validation (Commit 4)
+// Form validation
 
 function validateForm() {
     let isValid = true;
@@ -36,7 +36,7 @@ function validateForm() {
 }
 
 
-// Render blog posts dynamically (Commit 6)
+// Render posts dynamically
 
 function renderPosts() {
     postsContainer.innerHTML = "";
@@ -57,11 +57,21 @@ function renderPosts() {
             <small>${post.timestamp}</small>
 
             <div class="post-actions">
-                <button class="edit-button" data-id="${post.id}">
+                <button
+                    type="button"
+                    class="edit-button"
+                    data-id="${post.id}"
+                    aria-label="Edit ${post.title}"
+                >
                     Edit
                 </button>
 
-                <button class="delete-button" data-id="${post.id}">
+                <button
+                    type="button"
+                    class="delete-button"
+                    data-id="${post.id}"
+                    aria-label="Delete ${post.title}"
+                >
                     Delete
                 </button>
             </div>
@@ -72,7 +82,7 @@ function renderPosts() {
 }
 
 
-// localStorage data persistence (Commit 7)
+// localStorage helpers
 
 function savePosts() {
     localStorage.setItem("posts", JSON.stringify(posts));
@@ -87,34 +97,31 @@ function loadPosts() {
 }
 
 
-// Add new blog post functionality (Commit 5)
+// Create or update blog posts
 
 postForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
+    // Stop submission if either required field is empty
     if (!validateForm()) {
         return;
     }
 
-    // If editing an existing post
-   if (editingPostId !== null) {
-    const postToUpdate = posts.find(function (post) {
-        return post.id === editingPostId;
-    });
+    if (editingPostId !== null) {
+        const postToUpdate = posts.find(function (post) {
+            return post.id === editingPostId;
+        });
 
-    if (postToUpdate) {
-        postToUpdate.title = postTitle.value.trim();
-        postToUpdate.content = postContent.value.trim();
-        postToUpdate.timestamp =
-            "Updated: " + new Date().toLocaleString();
-    }
+        if (postToUpdate) {
+            postToUpdate.title = postTitle.value.trim();
+            postToUpdate.content = postContent.value.trim();
+            postToUpdate.timestamp =
+                "Updated: " + new Date().toLocaleString();
+        }
 
-    editingPostId = null;
-    submitButton.textContent = "Add Post";
-}
-
-    // If creating a new post
-    else {
+        editingPostId = null;
+        submitButton.textContent = "Add Post";
+    } else {
         const newPost = {
             id: Date.now(),
             title: postTitle.value.trim(),
@@ -135,7 +142,7 @@ postForm.addEventListener("submit", function (event) {
 });
 
 
-// Delete and edit post functionality (Commit 8 and 9)
+// Edit and delete post events
 
 postsContainer.addEventListener("click", function (event) {
     const postId = Number(event.target.dataset.id);
@@ -151,31 +158,29 @@ postsContainer.addEventListener("click", function (event) {
     }
 
     // Edit post
-if (event.target.classList.contains("edit-button")) {
-    const postToEdit = posts.find(function (post) {
-        return post.id === postId;
-    });
-
-    if (postToEdit) {
-        postTitle.value = postToEdit.title;
-        postContent.value = postToEdit.content;
-
-        editingPostId = postToEdit.id;
-
-        submitButton.textContent = "Update Post";
-
-        // Clear old validation messages
-        titleError.textContent = "";
-        contentError.textContent = "";
-
-        // Move the user back to the form
-        postForm.scrollIntoView({
-            behavior: "smooth"
+    if (event.target.classList.contains("edit-button")) {
+        const postToEdit = posts.find(function (post) {
+            return post.id === postId;
         });
 
-        postTitle.focus();
+        if (postToEdit) {
+            postTitle.value = postToEdit.title;
+            postContent.value = postToEdit.content;
+
+            editingPostId = postToEdit.id;
+
+            submitButton.textContent = "Update Post";
+
+            titleError.textContent = "";
+            contentError.textContent = "";
+
+            postForm.scrollIntoView({
+                behavior: "smooth"
+            });
+
+            postTitle.focus();
+        }
     }
-}
 });
 
 
