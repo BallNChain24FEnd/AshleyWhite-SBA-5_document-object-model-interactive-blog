@@ -1,22 +1,16 @@
 // DOM selections and blog state (Commit 3)
 
-// Select form elements
 const postForm = document.getElementById("postForm");
 const postTitle = document.getElementById("postTitle");
 const postContent = document.getElementById("postContent");
 const submitButton = document.getElementById("submitButton");
 
-// Select error message elements
 const titleError = document.getElementById("titleError");
 const contentError = document.getElementById("contentError");
 
-// Select posts display container
 const postsContainer = document.getElementById("postsContainer");
 
-// Application state
 let posts = [];
-
-// Tracks the post currently being edited
 let editingPostId = null;
 
 
@@ -25,17 +19,14 @@ let editingPostId = null;
 function validateForm() {
     let isValid = true;
 
-    // Clear previous error messages
     titleError.textContent = "";
     contentError.textContent = "";
 
-    // Validate title
     if (postTitle.value.trim() === "") {
         titleError.textContent = "Please enter a post title.";
         isValid = false;
     }
 
-    // Validate content
     if (postContent.value.trim() === "") {
         contentError.textContent = "Please enter post content.";
         isValid = false;
@@ -45,67 +36,16 @@ function validateForm() {
 }
 
 
-// localStorage data persistence (Commit 7)
-
-function savePosts() {
-    localStorage.setItem("posts", JSON.stringify(posts));
-}
-
-function loadPosts() {
-    const savedPosts = localStorage.getItem("posts");
-
-    if (savedPosts) {
-        posts = JSON.parse(savedPosts);
-    }
-}
-
-
-postForm.addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    if (!validateForm()) {
-        return;
-    }
-
-    const newPost = {
-        id: Date.now(),
-        title: postTitle.value.trim(),
-        content: postContent.value.trim(),
-        timestamp: new Date().toLocaleString()
-    };
-
-    posts.push(newPost);
-
-    savePosts();
-
-    renderPosts();
-
-    console.log(posts);
-
-    postForm.reset();
-
-    titleError.textContent = "";
-    contentError.textContent = "";
-});
-
-
-loadPosts();
-renderPosts();
-
-
 // Render blog posts dynamically (Commit 6)
 
 function renderPosts() {
-    // Clear current posts before re-rendering
     postsContainer.innerHTML = "";
 
-    // Show a message if there are no posts
     if (posts.length === 0) {
         postsContainer.innerHTML = "<p>No posts yet.</p>";
         return;
     }
 
-    // Create and display each post
     posts.forEach(function (post) {
         const postElement = document.createElement("article");
 
@@ -130,3 +70,70 @@ function renderPosts() {
         postsContainer.appendChild(postElement);
     });
 }
+
+
+// localStorage data persistence (Commit 7)
+
+function savePosts() {
+    localStorage.setItem("posts", JSON.stringify(posts));
+}
+
+function loadPosts() {
+    const savedPosts = localStorage.getItem("posts");
+
+    if (savedPosts) {
+        posts = JSON.parse(savedPosts);
+    }
+}
+
+
+// Add new blog post functionality (Commit 5)
+
+postForm.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    if (!validateForm()) {
+        return;
+    }
+
+    const newPost = {
+        id: Date.now(),
+        title: postTitle.value.trim(),
+        content: postContent.value.trim(),
+        timestamp: new Date().toLocaleString()
+    };
+
+    posts.push(newPost);
+
+    savePosts();
+    renderPosts();
+
+    console.log(posts);
+
+    postForm.reset();
+
+    titleError.textContent = "";
+    contentError.textContent = "";
+});
+
+
+// Delete post functionality (Commit 8)
+
+postsContainer.addEventListener("click", function (event) {
+    if (event.target.classList.contains("delete-button")) {
+        const postId = Number(event.target.dataset.id);
+
+        posts = posts.filter(function (post) {
+            return post.id !== postId;
+        });
+
+        savePosts();
+        renderPosts();
+    }
+});
+
+
+// Load saved posts when the page opens
+
+loadPosts();
+renderPosts();
